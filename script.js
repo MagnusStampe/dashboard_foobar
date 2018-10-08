@@ -8,7 +8,7 @@ function init() {
 
 function update() {
   let data = JSON.parse(FooBar.getData());
-  doSomething(data.bartenders);
+  doSomething(data);
 }
 
 function doSomething(dataThing) {
