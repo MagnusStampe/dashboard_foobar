@@ -1,0 +1,23 @@
+#goal_container {
+  width: 90vw;
+  height: 10vh;
+}
+
+.goal_end {
+  text-align: end;
+}
+
+.goal_bar {
+  width: 100%;
+  height: 100%;
+  background-color: grey;
+  border: solid 2px black;
+}
+
+.goal_fill {
+  height: 100%;
+  background-color: red;
+  transition: 1s;
+
+  max-width: 100%;
+}
