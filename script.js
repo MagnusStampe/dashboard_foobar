@@ -34,6 +34,7 @@ function init() {
 
   document.querySelector(".goal_fill").style.width = "0";
   data.storage.forEach(createStock);
+  data.taps.forEach(createLevel);
 }
 
 //#endregion init
@@ -55,11 +56,24 @@ function doSomething(dataThing) {
   console.log(dataThing);
 }
 
+function updateTaps(beerId) {
+  let level;
+  data.taps.forEach(checkTap);
+  console.log(level);
+
+  function checkTap(tap) {
+    if (beerId == tap.id) {
+      level = tap.level;
+    }
+  }
+  document.querySelector(".tap" + beerId).textContent = level;
+}
+
 function checkTap(tap) {
   //console.log(tap.id);
   if (tap.inUse && tap.inUse !== tapInUse[tap.id]) {
     beerSold(tap.beer);
-
+    updateTaps(tap.id);
     updateStock(tap.beer);
     //data.storage.forEach(updateStock);
 
@@ -85,7 +99,7 @@ function beerSold(beerName) {
 
 function updateGoalBar() {
   let goalBar = document.querySelector(".goal_fill");
-  let barFill = earningsCurrent / 20000 * 100;
+  let barFill = (earningsCurrent / 20000) * 100;
   goalBar.style.width = barFill + "%";
 }
 
@@ -132,15 +146,6 @@ let massPopChart = new Chart(bartenderChart, {
     }
   }
 });
-function checkTap(tap) {
-  //console.log(tap.id);
-  if (tap.inUse && tap.inUse !== tapInUse[tap.id]) {
-    beerSold(tap.beer);
-    tapInUse[tap.id] = true;
-  } else if (tap.inUse === false) {
-    tapInUse[tap.id] = false;
-  }
-}
 
 function createBartenders() {}
 
@@ -182,8 +187,20 @@ function updateStock(beerName) {
   ).textContent = amount;
 }
 
-function updateTaps() {
-  //taps.forEach(taps)
+//#endregion storage
+
+//#region taps levels
+
+function createLevel(tap) {
+  const clone = document
+    .querySelector("[data-tapTemp]")
+    .content.cloneNode(true);
+
+  clone.querySelector(".tap_level").textContent = tap.level;
+
+  clone.querySelector(".tap_level").classList.add("tap" + tap.id);
+
+  document.querySelector("#taps").appendChild(clone);
 }
 
-//#endregion storage
+//#endregion taps level
