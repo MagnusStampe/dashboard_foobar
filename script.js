@@ -23,6 +23,7 @@ let bartenderInfo = {
     working: false
   }
 };
+let data = JSON.parse(FooBar.getData());
 
 document.addEventListener("DOMContentLoaded", init);
 //#endregion
@@ -32,6 +33,7 @@ function init() {
   setInterval(update, 2000);
 
   document.querySelector(".goal_fill").style.width = "0";
+  data.storage.forEach(createStock);
 }
 
 //#endregion init
@@ -39,9 +41,7 @@ function init() {
 //#region update cycle
 
 function update() {
-  let data = JSON.parse(FooBar.getData());
-  //console.log(data.taps[0].inUse);
-
+  data = JSON.parse(FooBar.getData());
   const taps = data.taps;
   const bartenders = data.bartenders;
 
@@ -59,6 +59,10 @@ function checkTap(tap) {
   //console.log(tap.id);
   if (tap.inUse && tap.inUse !== tapInUse[tap.id]) {
     beerSold(tap.beer);
+
+    updateStock(tap.beer);
+    //data.storage.forEach(updateStock);
+
     tapInUse[tap.id] = true;
   } else if (tap.inUse === false) {
     tapInUse[tap.id] = false;
@@ -145,3 +149,41 @@ function checkBartender(bartender) {}
 function updateBartenders() {}
 
 //#endregion
+
+//#region storage
+
+function createStock(keg) {
+  const clone = document
+    .querySelector("[data-storageTemp]")
+    .content.cloneNode(true);
+
+  clone.querySelector(".stock_number").textContent = keg.amount;
+
+  clone
+    .querySelector(".stock_number")
+    .classList.add(keg.name.replace(/\s/g, ""));
+
+  document.querySelector("#storage").appendChild(clone);
+}
+
+function updateStock(beerName) {
+  let amount;
+  data.storage.forEach(checkStock);
+  console.log(amount);
+
+  function checkStock(beer) {
+    if (beerName == beer.name) {
+      amount = beer.amount;
+    }
+  }
+
+  document.querySelector(
+    "." + beerName.replace(/\s/g, "")
+  ).textContent = amount;
+}
+
+function updateTaps() {
+  //taps.forEach(taps)
+}
+
+//#endregion storage
