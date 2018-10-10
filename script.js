@@ -202,13 +202,31 @@ function createStock(keg) {
     .querySelector("[data-storageTemp]")
     .content.cloneNode(true);
 
-  clone.querySelector(".stock_number").textContent = keg.amount;
-
   clone
-    .querySelector(".stock_number")
+    .querySelector(".beer_single_container")
     .classList.add(keg.name.replace(/\s/g, ""));
 
-  document.querySelector("#storage").appendChild(clone);
+  clone.querySelector(".beer_name").textContent = keg.name;
+
+  clone.querySelector(".beer_amount").textContent = "Kegs left: " + keg.amount;
+
+  console.log(`url("${keg.name.toLowerCase().replace(/\s/g, "")}.png")`);
+  clone.querySelector(".beer_single_container").style.backgroundImage =
+    "url('img/" + keg.name.toLowerCase().replace(/\s/g, "") + ".png')";
+
+  for (let n = keg.amount; n > 0; n--) {
+    let displayKegs = document.createElement("DIV");
+    clone.querySelector(".beer").appendChild(displayKegs);
+  }
+
+  if (keg.amount === 2) {
+    clone.querySelector(".beer").classList.add("warning");
+  } else if (keg.amount < 2) {
+    clone.querySelector(".beer").classList.add("alert");
+    clone.querySelector(".beer").classList.remove("warning");
+  }
+
+  document.querySelector("[data-storageDest]").appendChild(clone);
 }
 
 function updateStock(beerName) {
@@ -221,10 +239,33 @@ function updateStock(beerName) {
       amount = beer.amount;
     }
   }
-
   document.querySelector(
-    "." + beerName.replace(/\s/g, "")
-  ).textContent = amount;
+    "#storage ." + beerName.replace(/\s/g, "") + " .beer"
+  ).innerHTML = "";
+  for (let n = amount; n > 0; n--) {
+    let displayKegs = document.createElement("DIV");
+    document
+      .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+      .appendChild(displayKegs);
+  }
+  console.log(
+    "#storage ." + beerName.replace(/\s/g, "") + " .beer_info .beer_amount"
+  );
+  document.querySelector(
+    "#storage ." + beerName.replace(/\s/g, "") + " .beer_info .beer_amount"
+  ).textContent = "Kegs left: " + amount;
+}
+if (amount === 2) {
+  document
+    .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+    .classList.add("warning");
+} else if (keg.amount < 2) {
+  document
+    .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+    .classList.add("alert");
+  document
+    .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+    .classList.remove("warning");
 }
 
 //#endregion storage
