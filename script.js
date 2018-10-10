@@ -17,12 +17,12 @@ const priceList = {
   "Steampunk ": 60
 };
 
-let bartenderInfo = {
-  peter: {
-    sales: 0,
-    working: false
-  }
+let bartenders = [];
+
+const bartender_prototype = {
+  beer_count: 0
 };
+
 let data = JSON.parse(FooBar.getData());
 
 document.addEventListener("DOMContentLoaded", init);
@@ -35,6 +35,7 @@ function init() {
   document.querySelector(".goal_fill").style.width = "0";
   data.storage.forEach(createStock);
   data.taps.forEach(createLevel);
+  data.bartenders.forEach(createBartenders);
 }
 
 //#endregion init
@@ -43,11 +44,8 @@ function init() {
 
 function update() {
   data = JSON.parse(FooBar.getData());
-  const taps = data.taps;
-  const bartenders = data.bartenders;
 
-  taps.forEach(checkTap);
-  bartenders.forEach(checkBartender);
+  data.taps.forEach(checkTap);
 
   doSomething(data);
 }
@@ -72,8 +70,10 @@ function updateTaps(beerId) {
 function checkTap(tap) {
   //console.log(tap.id);
   if (tap.inUse && tap.inUse !== tapInUse[tap.id]) {
+    console.log(tap);
     beerSold(tap.beer);
     updateTaps(tap.id);
+    checkBartender(tap.id);
     updateStock(tap.beer);
     //data.storage.forEach(updateStock);
 
@@ -89,7 +89,7 @@ function checkTap(tap) {
 
 //Called when a beer is sold
 function beerSold(beerName) {
-  console.log(beerName);
+  //console.log(beerName);
   earningsCurrent += priceList[beerName + " "];
 
   console.log(earningsCurrent);
@@ -147,9 +147,49 @@ let massPopChart = new Chart(bartenderChart, {
   }
 });
 
-function createBartenders() {}
+function createBartenders(bartenderdata) {
+  const bartender = Object.create(bartender_prototype);
+  bartender.name = bartenderdata.name;
 
-function checkBartender(bartender) {}
+  bartenders.push(bartender);
+
+  //console.warn(bartender.statusDetail);
+}
+
+// function checkTap(tap) {
+//   //console.log(tap.id);
+//   if (tap.inUse && tap.inUse !== tapInUse[tap.id]) {
+//     beerSold(tap.beer);
+
+//     updateStock(tap.beer);
+//     //data.storage.forEach(updateStock);
+
+//     tapInUse[tap.id] = true;
+//   } else if (tap.inUse === false) {
+//     tapInUse[tap.id] = false;
+//   }
+// }
+
+// let bartender_prototype = {
+//   name: "",
+//   status: "READY",
+//   statusDetail: "waiting",
+//   beer_count: 0
+// };
+function checkBartender(tapID) {
+  data.bartenders.forEach((bartender, index) => {
+    if (bartender.usingTap == tapID) {
+      console.log(bartender.name + " bruger " + tapID);
+      bartenders[index].beer_count += 1;
+    }
+  });
+
+  console.log(
+    bartenders[0].beer_count,
+    bartenders[1].beer_count,
+    bartenders[2].beer_count
+  );
+}
 
 function updateBartenders() {}
 
@@ -174,7 +214,7 @@ function createStock(keg) {
 function updateStock(beerName) {
   let amount;
   data.storage.forEach(checkStock);
-  console.log(amount);
+  //console.log(amount);
 
   function checkStock(beer) {
     if (beerName == beer.name) {
