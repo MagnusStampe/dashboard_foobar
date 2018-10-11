@@ -4,17 +4,57 @@
 let earningsCurrent = 0;
 const earningsGoal = 50000;
 let tapInUse = [false, false, false, false, false, false, false];
-const priceList = {
-  "El Hefe ": 40,
-  "Fairy Tale Ale ": 30,
-  "GitHop ": 45,
-  "Hollaback Lager ": 30,
-  "Hoppily Ever After ": 25,
-  "Mowintime ": 56,
-  "Row 26 ": 45,
-  "Ruined Childhood ": 30,
-  "Sleighride ": 70,
-  "Steampunk ": 60
+const beerList = {
+  "El Hefe ": {
+    id: 0,
+    price: 40,
+    popularity: 0
+  },
+  "Fairy Tale Ale ": {
+    id: 1,
+    price: 30,
+    popularity: 0
+  },
+  "GitHop ": {
+    id: 2,
+    price: 45,
+    popularity: 0
+  },
+  "Hollaback Lager ": {
+    id: 3,
+    price: 30,
+    popularity: 0
+  },
+  "Hoppily Ever After ": {
+    id: 4,
+    price: 25,
+    popularity: 0
+  },
+  "Mowintime ": {
+    id: 5,
+    price: 55,
+    popularity: 0
+  },
+  "Row 26 ": {
+    id: 6,
+    price: 45,
+    popularity: 0
+  },
+  "Ruined Childhood ": {
+    id: 7,
+    price: 30,
+    popularity: 0
+  },
+  "Sleighride ": {
+    id: 8,
+    price: 70,
+    popularity: 0
+  },
+  "Steampunk ": {
+    id: 9,
+    price: 60,
+    popularity: 0
+  }
 };
 
 let bartenders = [];
@@ -88,7 +128,7 @@ let massPieChart = new Chart(favBeerChart, {
     labels: [],
     datasets: [
       {
-        data: [4, 5, 7, 1],
+        data: [],
         backgroundColor: [
           "rgb(190, 243, 246",
           "rgb(190, 243, 246",
@@ -132,6 +172,17 @@ function init() {
   data.taps.forEach(createLevel);
   data.bartenders.forEach(createBartenders);
   massPopChart.update();
+  massPieChart.update();
+
+  Object.keys(beerList).forEach(createPieChart);
+
+  function createPieChart(beer) {
+    console.log(beer);
+
+    massPieChart.data.labels.push(beer);
+
+    massPieChart.update();
+  }
 }
 
 //#endregion init
@@ -186,7 +237,14 @@ function checkTap(tap) {
 //Called when a beer is sold
 function beerSold(beerName) {
   //console.log(beerName);
-  earningsCurrent += priceList[beerName + " "];
+  earningsCurrent += beerList[beerName + " "].price;
+
+  beerList[beerName + " "].popularity++;
+
+  updateFavoriteBeer(
+    beerList[beerName + " "].popularity,
+    beerList[beerName + " "].id
+  );
 
   console.log(earningsCurrent);
 
@@ -232,11 +290,21 @@ function checkBartender(tapID) {
 
 function updateBartenders(bartenders, index) {
   console.log(index);
+
   massPopChart.data.datasets.forEach(dataset => {
     dataset.data[index] = 0;
     dataset.data[index] = bartenders[index].beer_count;
   });
   massPopChart.update();
+}
+
+function updateFavoriteBeer(popularity, id) {
+  massPieChart.data.datasets.forEach(dataset => {
+    dataset.data[id] = 0;
+    dataset.data[id] = popularity;
+    console.log(dataset.data);
+  });
+  massPieChart.update();
 }
 
 //#endregion
@@ -302,20 +370,20 @@ function updateStock(beerName) {
     "#storage ." + beerName.replace(/\s/g, "") + " .beer_info .beer_amount"
   ).textContent =
     "Kegs left: " + amount;
-}
-if (amount === 2) {
-  document
-    .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
-    .classList.add("warning");
-} else if (keg.amount < 2) {
-  document
-    .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
-    .classList.add("alert");
-  document
-    .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
-    .classList.remove("warning");
-}
 
+  if (amount === 2) {
+    document
+      .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+      .classList.add("warning");
+  } else if (amount < 2) {
+    document
+      .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+      .classList.add("alert");
+    document
+      .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+      .classList.remove("warning");
+  }
+}
 //#endregion storage
 
 //#region taps levels
