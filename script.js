@@ -81,8 +81,6 @@ let massPopChart = new Chart(bartenderChart, {
     labels: [],
     datasets: [
       {
-        label: "Beers sold",
-
         data: [],
         backgroundColor: [
           "rgb(241, 92, 132",
@@ -102,8 +100,11 @@ let massPopChart = new Chart(bartenderChart, {
     maintainAspectRatio: false,
     title: {
       display: true,
-      text: "Work Effort",
+      text: "Work effort - Beers sold",
       fontFamily: "Helvetica"
+    },
+    legend: {
+      display: false
     },
     scales: {
       yAxes: [
