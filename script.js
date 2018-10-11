@@ -23,7 +23,7 @@ const bartender_prototype = {
   beer_count: 0
 };
 
-//#region Bartender chart
+//#region charts
 let bartenderChart = document
   .querySelector("#bartender_chart")
   .getContext("2d");
@@ -31,6 +31,7 @@ let bartenderChart = document
 Chart.defaults.global.defaultFontFamily = "Lato";
 Chart.defaults.global.defaultFontSize = 18;
 Chart.defaults.global.defaultFontColor = "#777";
+Chart.defaults.global.defaultFontColor = "white";
 
 let massPopChart = new Chart(bartenderChart, {
   type: "bar", //bar, horizontalBar, pie, line, doughnut, radar, polarArea
@@ -47,9 +48,9 @@ let massPopChart = new Chart(bartenderChart, {
           "rgb(190, 243, 246"
         ],
         hoverBackgroundColor: [
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246"
+          "rgb(190, 243, 250",
+          "rgb(190, 243, 250",
+          "rgb(190, 243, 250"
         ]
       }
     ]
@@ -59,9 +60,6 @@ let massPopChart = new Chart(bartenderChart, {
       display: true,
       text: "Work Effort",
       fontFamily: "Helvetica"
-    },
-    legend: {
-      display: false
     },
     scales: {
       yAxes: [
@@ -73,6 +71,47 @@ let massPopChart = new Chart(bartenderChart, {
           }
         }
       ]
+    }
+  }
+});
+
+let favBeerChart = document.querySelector("#favbeer_chart").getContext("2d");
+
+Chart.defaults.global.defaultFontFamily = "Lato";
+Chart.defaults.global.defaultFontSize = 18;
+Chart.defaults.global.defaultFontColor = "#777";
+Chart.defaults.global.defaultFontColor = "white";
+
+let massPieChart = new Chart(favBeerChart, {
+  type: "pie", //bar, horizontalBar, pie, line, doughnut, radar, polarArea
+  data: {
+    labels: [],
+    datasets: [
+      {
+        data: [4, 5, 7, 1],
+        backgroundColor: [
+          "rgb(190, 243, 246",
+          "rgb(190, 243, 246",
+          "rgb(190, 243, 246",
+          "rgb(190, 243, 246",
+          "rgb(190, 243, 246",
+          "rgb(190, 243, 246",
+          "rgb(190, 243, 246",
+          "rgb(190, 243, 246",
+          "rgb(190, 243, 246",
+          "rgb(190, 243, 246"
+        ]
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "Favorite Beer",
+      fontFamily: "Helvetica"
+    },
+    legend: {
+      display: false
     }
   }
 });
@@ -248,7 +287,8 @@ function updateStock(beerName) {
   }
   document.querySelector(
     "#storage ." + beerName.replace(/\s/g, "") + " .beer"
-  ).innerHTML = "";
+  ).innerHTML =
+    "";
   for (let n = amount; n > 0; n--) {
     let displayKegs = document.createElement("DIV");
     document
@@ -260,7 +300,8 @@ function updateStock(beerName) {
   );
   document.querySelector(
     "#storage ." + beerName.replace(/\s/g, "") + " .beer_info .beer_amount"
-  ).textContent = "Kegs left: " + amount;
+  ).textContent =
+    "Kegs left: " + amount;
 }
 if (amount === 2) {
   document

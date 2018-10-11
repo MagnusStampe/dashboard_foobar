@@ -11,8 +11,8 @@
 
 <body>
     <div id="container_grid">
+        <h1 class="intro_h1">FooBar Dashboard4 1337_Hackerton</h1>
         <div id="goal_container">
-            <h1 class="intro_h1">FooBar Dashboard4 1337_Hackerton</h1>
             <div class="goal_numbers">
                 <div class="goal_start">0</div>
                 <div class="goal_end">20.000</div>
@@ -26,13 +26,10 @@
             <canvas id="bartender_chart"></canvas>
         </div>
         <!-- Her skal der være noget med Y-øl -->
-        <div id="pie_char">
-            <div class="diagram_test"></div>
+        <div id="favbeer_container">
+            <canvas id="favbeer_chart"></canvas>
         </div>
 
-        <div id="bartender_container">
-            <canvas id="bartender_chart"></canvas>
-        </div>
         <section id="storage">
             <div class="beer_container" data-storageDest>
             </div>
@@ -43,39 +40,40 @@
 
         <section id="taps">
         </section>
-
-
-
-        <template data-storageTemp>
-            <div class="beer_single_container">
-                <article class="beer">
-
-                </article>
-                <div class="beer_info">
-                    <p class="beer_name">Beer</p>
-                    <p class="beer_amount">7</p>
-                </div>
-            </div>
-        </template>
-
-
-        <template data-tapTemp>
-            <p class="tap_level">5</p>
-        </template>
-
-
-        <template data-storageTemp>
-
-            <article class="beers">
-                <div class="level">
-                </div>
-                <div class="stock">
-                    <h1 class="stock_number">asdasdasdasdasda</h1>
-                </div>
-            </article>
-
-        </template>
     </div>
+
+
+
+    <template data-storageTemp>
+        <div class="beer_single_container">
+            <article class="beer">
+
+            </article>
+            <div class="beer_info">
+                <p class="beer_name">Beer</p>
+                <p class="beer_amount">7</p>
+            </div>
+        </div>
+    </template>
+
+
+    <template data-tapTemp>
+        <p class="tap_level">5</p>
+    </template>
+
+
+    <template data-storageTemp>
+
+        <article class="beers">
+            <div class="level">
+            </div>
+            <div class="stock">
+                <h1 class="stock_number">asdasdasdasdasda</h1>
+            </div>
+        </article>
+
+    </template>
+
     <script src="https://kea-alt-del.dk/2018/front/foobar.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <script src="script.js"></script>
