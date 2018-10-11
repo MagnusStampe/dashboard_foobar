@@ -6,27 +6,26 @@ p {
   font-family: sans-serif;
 }
 /* Grid container til alle vores elementer */
-/* Som test har jeg kun defineret et grid med ROWS, og lagt det som en container omrking alt vi har i index.HTML */
+/* Som test har jeg kun defineret et grid og lagt det som en container omrking alt vi har i index.HTML */
 #container_grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(4, 1fr);
 }
 /* Grid container slut  */
 body {
   background-color: rgb(0, 40, 55);
 }
 .intro_h1 {
-  grid-column: 1/5;
-  grid-row: 0/1;
+  grid-column: 5/9;
   color: rgb(234, 174, 99);
   text-align: center;
+  grid-row: 1/2;
 }
 
 #goal_container {
-  height: 10vh;
+  height: 100%;
   grid-column: 4/10;
-  grid-row: 0/1;
+  grid-row: 2/3;
 }
 
 .goal_start {
@@ -53,31 +52,32 @@ body {
 
   max-width: 100%;
 }
+.goal_numbers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+#favbeer_container {
+  grid-column: 7/10;
+  grid-row: 3/4;
+  margin-top: 15%;
+}
 
 #bartender_container {
-  grid-column: 4/5;
-  grid-row: 2/2;
-}
-
-#pie_char {
-  grid-column: 6/9;
-  grid-row: 2/2;
-}
-
-.diagram_test {
-  width: 20vw;
-  height: 20vw;
-  border-radius: 50%;
-  background-color: red;
+  grid-column: 4/7;
+  grid-row: 3/4;
+  margin-top: 15%;
 }
 
 #storage {
   grid-column: 4/10;
-  margin-top: 3vw;
-  margin-left: 6vw;
+  margin-left: 4vw;
+  margin-top: 4vw;
 }
 #taps {
   grid-column: 1/6;
+  grid-row: 5/6;
 }
 /*### STORAGE ###*/
 

@@ -4,17 +4,57 @@
 let earningsCurrent = 0;
 const earningsGoal = 50000;
 let tapInUse = [false, false, false, false, false, false, false];
-const priceList = {
-  "El Hefe ": 40,
-  "Fairy Tale Ale ": 30,
-  "GitHop ": 45,
-  "Hollaback Lager ": 30,
-  "Hoppily Ever After ": 25,
-  "Mowintime ": 56,
-  "Row 26 ": 45,
-  "Ruined Childhood ": 30,
-  "Sleighride ": 70,
-  "Steampunk ": 60
+const beerList = {
+  "El Hefe ": {
+    id: 0,
+    price: 40,
+    popularity: 0
+  },
+  "Fairy Tale Ale ": {
+    id: 1,
+    price: 30,
+    popularity: 0
+  },
+  "GitHop ": {
+    id: 2,
+    price: 45,
+    popularity: 0
+  },
+  "Hollaback Lager ": {
+    id: 3,
+    price: 30,
+    popularity: 0
+  },
+  "Hoppily Ever After ": {
+    id: 4,
+    price: 25,
+    popularity: 0
+  },
+  "Mowintime ": {
+    id: 5,
+    price: 55,
+    popularity: 0
+  },
+  "Row 26 ": {
+    id: 6,
+    price: 45,
+    popularity: 0
+  },
+  "Ruined Childhood ": {
+    id: 7,
+    price: 30,
+    popularity: 0
+  },
+  "Sleighride ": {
+    id: 8,
+    price: 70,
+    popularity: 0
+  },
+  "Steampunk ": {
+    id: 9,
+    price: 60,
+    popularity: 0
+  }
 };
 
 let bartenders = [];
@@ -23,7 +63,7 @@ const bartender_prototype = {
   beer_count: 0
 };
 
-//#region Bartender chart
+//#region charts
 let bartenderChart = document
   .querySelector("#bartender_chart")
   .getContext("2d");
@@ -31,6 +71,7 @@ let bartenderChart = document
 Chart.defaults.global.defaultFontFamily = "Lato";
 Chart.defaults.global.defaultFontSize = 18;
 Chart.defaults.global.defaultFontColor = "#777";
+Chart.defaults.global.defaultFontColor = "white";
 
 let massPopChart = new Chart(bartenderChart, {
   type: "bar", //bar, horizontalBar, pie, line, doughnut, radar, polarArea
@@ -42,14 +83,14 @@ let massPopChart = new Chart(bartenderChart, {
 
         data: [],
         backgroundColor: [
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246"
+          "rgb(241, 92, 132",
+          "rgb(240, 91, 131",
+          "rgb(239, 90, 130"
         ],
         hoverBackgroundColor: [
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246"
+          "rgb(194, 70, 66",
+          "rgb(194, 70, 66",
+          "rgb(194, 70, 66"
         ]
       }
     ]
@@ -60,19 +101,57 @@ let massPopChart = new Chart(bartenderChart, {
       text: "Work Effort",
       fontFamily: "Helvetica"
     },
-    legend: {
-      display: false
-    },
     scales: {
       yAxes: [
         {
           ticks: {
             beginAtZero: true,
             min: 0,
-            max: 100
+            max: 30
           }
         }
       ]
+    }
+  }
+});
+
+let favBeerChart = document.querySelector("#favbeer_chart").getContext("2d");
+
+Chart.defaults.global.defaultFontFamily = "Lato";
+Chart.defaults.global.defaultFontSize = 18;
+Chart.defaults.global.defaultFontColor = "#777";
+Chart.defaults.global.defaultFontColor = "white";
+
+let massPieChart = new Chart(favBeerChart, {
+  type: "pie", //bar, horizontalBar, pie, line, doughnut, radar, polarArea
+  data: {
+    labels: [],
+    datasets: [
+      {
+        data: [],
+        backgroundColor: [
+          "rgb(132, 109, 137",
+          "rgb(109, 188, 235",
+          "rgb(141, 184, 18",
+          "rgb(200, 182, 50",
+          "rgb(194, 70, 66",
+          "rgb(82, 81, 78",
+          "rgb(240, 280, 280",
+          "rgb(234, 174, 99",
+          "rgb(236, 48, 44",
+          "rgb(44, 51, 61"
+        ]
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "Favorite Beer",
+      fontFamily: "Helvetica"
+    },
+    legend: {
+      display: false
     }
   }
 });
@@ -93,6 +172,17 @@ function init() {
   data.taps.forEach(createLevel);
   data.bartenders.forEach(createBartenders);
   massPopChart.update();
+  massPieChart.update();
+
+  Object.keys(beerList).forEach(createPieChart);
+
+  function createPieChart(beer) {
+    console.log(beer);
+
+    massPieChart.data.labels.push(beer);
+
+    massPieChart.update();
+  }
 }
 
 //#endregion init
@@ -147,7 +237,14 @@ function checkTap(tap) {
 //Called when a beer is sold
 function beerSold(beerName) {
   //console.log(beerName);
-  earningsCurrent += priceList[beerName + " "];
+  earningsCurrent += beerList[beerName + " "].price;
+
+  beerList[beerName + " "].popularity++;
+
+  updateFavoriteBeer(
+    beerList[beerName + " "].popularity,
+    beerList[beerName + " "].id
+  );
 
   console.log(earningsCurrent);
 
@@ -193,11 +290,21 @@ function checkBartender(tapID) {
 
 function updateBartenders(bartenders, index) {
   console.log(index);
+
   massPopChart.data.datasets.forEach(dataset => {
     dataset.data[index] = 0;
     dataset.data[index] = bartenders[index].beer_count;
   });
   massPopChart.update();
+}
+
+function updateFavoriteBeer(popularity, id) {
+  massPieChart.data.datasets.forEach(dataset => {
+    dataset.data[id] = 0;
+    dataset.data[id] = popularity;
+    console.log(dataset.data);
+  });
+  massPieChart.update();
 }
 
 //#endregion
@@ -248,7 +355,8 @@ function updateStock(beerName) {
   }
   document.querySelector(
     "#storage ." + beerName.replace(/\s/g, "") + " .beer"
-  ).innerHTML = "";
+  ).innerHTML =
+    "";
   for (let n = amount; n > 0; n--) {
     let displayKegs = document.createElement("DIV");
     document
@@ -260,21 +368,22 @@ function updateStock(beerName) {
   );
   document.querySelector(
     "#storage ." + beerName.replace(/\s/g, "") + " .beer_info .beer_amount"
-  ).textContent = "Kegs left: " + amount;
-}
-if (amount === 2) {
-  document
-    .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
-    .classList.add("warning");
-} else if (keg.amount < 2) {
-  document
-    .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
-    .classList.add("alert");
-  document
-    .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
-    .classList.remove("warning");
-}
+  ).textContent =
+    "Kegs left: " + amount;
 
+  if (amount === 2) {
+    document
+      .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+      .classList.add("warning");
+  } else if (amount < 2) {
+    document
+      .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+      .classList.add("alert");
+    document
+      .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+      .classList.remove("warning");
+  }
+}
 //#endregion storage
 
 //#region taps levels
