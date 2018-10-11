@@ -118,6 +118,8 @@ p {
   /* margin-left: 3vw; */
   margin-top: 1vw;
   background-color: #286b71;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
   padding: 30px;
   border-radius: 10px;
 }
