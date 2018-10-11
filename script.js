@@ -195,21 +195,15 @@ function update() {
   data = JSON.parse(FooBar.getData());
 
   data.taps.forEach(checkTap);
-
-  doSomething(data);
-}
-
-function doSomething(dataThing) {
-  console.log(dataThing);
 }
 
 function updateTaps(beerId) {
   let level;
   let capacity;
-  data.taps.forEach(checkTap);
+  data.taps.forEach(checkTapLevel);
   console.log(level);
 
-  function checkTap(tap) {
+  function checkTapLevel(tap) {
     if (beerId == tap.id) {
       level = tap.level;
       capacity = tap.capacity;
