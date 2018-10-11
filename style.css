@@ -42,6 +42,11 @@ p {
   font-size: 2rem;
   color: white;
 }
+.goal_middle {
+  text-align: center;
+  font-size: 2rem;
+  color: white;
+}
 .goal_end {
   text-align: end;
   font-size: 2rem;

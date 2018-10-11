@@ -209,15 +209,16 @@ function updateTaps(beerId) {
       capacity = tap.capacity;
     }
   }
-  console.log("height: " + (level / capacity) * 100 + "%");
+  console.log("height: " + level / capacity * 100 + "%");
   document.querySelector(".tap" + beerId + " .beer .level").style.height =
-    (level / capacity) * 100 + "%";
+    level / capacity * 100 + "%";
   document.querySelector(
     ".tap" + beerId + " .beer_info .beer_amount"
-  ).textContent = "Level: " + (level / capacity) * 100 + "%";
-  if ((level / capacity) * 100 < 10) {
+  ).textContent =
+    "Level: " + level / capacity * 100 + "%";
+  if (level / capacity * 100 < 10) {
     document.querySelector(".tap" + beerId + " .beer").classList.add("alert");
-  } else if ((level / capacity) * 100 < 30) {
+  } else if (level / capacity * 100 < 30) {
     document.querySelector(".tap" + beerId + " .beer").classList.add("warning");
   }
 }
@@ -261,8 +262,10 @@ function beerSold(beerName) {
 
 function updateGoalBar() {
   let goalBar = document.querySelector(".goal_fill");
-  let barFill = (earningsCurrent / 20000) * 100;
+  let barFill = earningsCurrent / 20000 * 100;
   goalBar.style.width = barFill + "%";
+  document.querySelector(".goal_middle").textContent =
+    "Current earnings: " + earningsCurrent;
 }
 
 //#endregion
@@ -363,7 +366,8 @@ function updateStock(beerName) {
   }
   document.querySelector(
     "#storage ." + beerName.replace(/\s/g, "") + " .beer"
-  ).innerHTML = "";
+  ).innerHTML =
+    "";
   for (let n = amount; n > 0; n--) {
     let displayKegs = document.createElement("DIV");
     document
@@ -375,7 +379,8 @@ function updateStock(beerName) {
   );
   document.querySelector(
     "#storage ." + beerName.replace(/\s/g, "") + " .beer_info .beer_amount"
-  ).textContent = "Kegs left: " + amount;
+  ).textContent =
+    "Kegs left: " + amount;
 
   if (amount === 2) {
     document
