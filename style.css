@@ -1,6 +1,26 @@
+/* Grid container til alle vores elementer */
+/* Som test har jeg kun defineret et grid med ROWS, og lagt det som en container omrking alt vi har i index.HTML */
+#container_grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+/* Grid container slut  */
+body {
+  background-color: darkblue;
+}
+.intro_h1 {
+  grid-column: 1/5;
+  grid-row: 0/1;
+  color: orange;
+}
+
 #goal_container {
   width: 90vw;
   height: 10vh;
+  grid-column: 1/5;
+  grid-row: 0/1;
+  margin-left: 2vw;
 }
 
 .goal_end {
@@ -20,4 +40,26 @@
   transition: 1s;
 
   max-width: 100%;
+}
+
+#bartender_container {
+  grid-column: 1/4;
+}
+
+#pie_char {
+  grid-column: 5/6;
+}
+
+.diagram_test {
+  width: 20vw;
+  height: 20vw;
+  border-radius: 50%;
+  background-color: red;
+}
+
+#storage {
+  grid-column: 1/6;
+}
+#taps {
+  grid-column: 1/6;
 }

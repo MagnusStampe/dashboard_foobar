@@ -10,44 +10,55 @@
 </head>
 
 <body>
-
-    <div id="goal_container">
-        <div class="goal_numbers">
-            <div class="goal_start">0</div>
-            <div class="goal_end">20.000</div>
-        </div>
-        <div class="goal_bar">
-            <div class="goal_fill"></div>
-        </div>
-    </div>
-
-    <div id="bartender_container">
-        <canvas id="bartender_chart"></canvas>
-    </div>
-    <section id="storage">
-    </section>
-
-    <section id="taps">
-    </section>
-
-
-    <template data-tapTemp>
-        <p class="tap_level">5</p>
-    </template>
-
-
-    <template data-storageTemp>
-
-        <article class="beers">
-            <div class="level">
+    <div id="container_grid">
+        <div id="goal_container">
+            <h1 class="intro_h1">FooBar Dashboard 1337_Hackerton</h1>
+            <div class="goal_numbers">
+                <div class="goal_start">0</div>
+                <div class="goal_end">20.000</div>
             </div>
-            <div class="stock">
-                <h1 class="stock_number">asdasdasdasdasda</h1>
+            <div class="goal_bar">
+                <div class="goal_fill"></div>
             </div>
-        </article>
+        </div>
 
-    </template>
+        <div id="bartender_container">
+            <canvas id="bartender_chart"></canvas>
+        </div>
+        <!-- Her skal der være noget med Y-øl -->
+        <div id="pie_char">
+            <div class="diagram_test"></div>
+        </div>
 
+
+        <section id="storage">
+        </section>
+
+        <section id="taps">
+        </section>
+
+
+
+
+
+
+        <template data-tapTemp>
+            <p class="tap_level">5</p>
+        </template>
+
+
+        <template data-storageTemp>
+
+            <article class="beers">
+                <div class="level">
+                </div>
+                <div class="stock">
+                    <h1 class="stock_number">asdasdasdasdasda</h1>
+                </div>
+            </article>
+
+        </template>
+    </div>
     <script src="https://kea-alt-del.dk/2018/front/foobar.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <script src="script.js"></script>
