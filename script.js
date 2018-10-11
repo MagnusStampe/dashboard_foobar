@@ -71,7 +71,7 @@ let bartenderChart = document
   .getContext("2d");
 
 Chart.defaults.global.defaultFontFamily = "Lato";
-Chart.defaults.global.defaultFontSize = 18;
+
 Chart.defaults.global.defaultFontColor = "#777";
 Chart.defaults.global.defaultFontColor = "white";
 
@@ -81,13 +81,13 @@ let massPopChart = new Chart(bartenderChart, {
     labels: [],
     datasets: [
       {
-        label: "Har solgt",
+        label: "Beers sold",
 
         data: [],
         backgroundColor: [
           "rgb(241, 92, 132",
-          "rgb(240, 91, 131",
-          "rgb(239, 90, 130"
+          "rgb(141, 184, 18",
+          "rgb(200, 182, 50"
         ],
         hoverBackgroundColor: [
           "rgb(194, 70, 66",
@@ -98,6 +98,8 @@ let massPopChart = new Chart(bartenderChart, {
     ]
   },
   options: {
+    responsive: true,
+    maintainAspectRatio: false,
     title: {
       display: true,
       text: "Work Effort",
@@ -108,8 +110,7 @@ let massPopChart = new Chart(bartenderChart, {
         {
           ticks: {
             beginAtZero: true,
-            min: 0,
-            max: 30
+            min: 0
           }
         }
       ]
@@ -120,7 +121,6 @@ let massPopChart = new Chart(bartenderChart, {
 let favBeerChart = document.querySelector("#favbeer_chart").getContext("2d");
 
 Chart.defaults.global.defaultFontFamily = "Lato";
-Chart.defaults.global.defaultFontSize = 18;
 Chart.defaults.global.defaultFontColor = "#777";
 Chart.defaults.global.defaultFontColor = "white";
 
@@ -147,14 +147,14 @@ let massPieChart = new Chart(favBeerChart, {
     ]
   },
   options: {
+    responsive: true,
+    maintainAspectRatio: false,
     title: {
       display: true,
       text: "Favorite Beer",
       fontFamily: "Helvetica"
     },
-    legend: {
-      display: false
-    }
+    legend: { display: false }
   }
 });
 
