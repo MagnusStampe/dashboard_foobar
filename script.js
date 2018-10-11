@@ -85,14 +85,14 @@ let massPopChart = new Chart(bartenderChart, {
 
         data: [],
         backgroundColor: [
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246"
+          "rgb(241, 92, 132",
+          "rgb(240, 91, 131",
+          "rgb(239, 90, 130"
         ],
         hoverBackgroundColor: [
-          "rgb(190, 243, 250",
-          "rgb(190, 243, 250",
-          "rgb(190, 243, 250"
+          "rgb(194, 70, 66",
+          "rgb(194, 70, 66",
+          "rgb(194, 70, 66"
         ]
       }
     ]
@@ -109,7 +109,7 @@ let massPopChart = new Chart(bartenderChart, {
           ticks: {
             beginAtZero: true,
             min: 0,
-            max: 100
+            max: 30
           }
         }
       ]
@@ -132,16 +132,16 @@ let massPieChart = new Chart(favBeerChart, {
       {
         data: [],
         backgroundColor: [
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246"
+          "rgb(132, 109, 137",
+          "rgb(109, 188, 235",
+          "rgb(141, 184, 18",
+          "rgb(200, 182, 50",
+          "rgb(194, 70, 66",
+          "rgb(82, 81, 78",
+          "rgb(240, 280, 280",
+          "rgb(234, 174, 99",
+          "rgb(236, 48, 44",
+          "rgb(44, 51, 61"
         ]
       }
     ]
