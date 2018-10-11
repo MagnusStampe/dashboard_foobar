@@ -1,7 +1,14 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-  <title>2Artboard 1</title>
-  <g>
-    <path d="M58,258.5a140.83619,140.83619,0,0,1,22.22272-76.156h-.00055l.01092-.0166c.51477-.80432,1.04157-1.60016,1.57209-2.39331L200,0H0V400H199.5A141.5,141.5,0,0,1,58,258.5Z"/>
-    <path d="M200,0,318.4165,181.79016A141.51654,141.51654,0,0,1,199.5,400H400V0Z"/>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 400 400" style="enable-background:new 0 0 400 400;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#286B71;}
+</style>
+<title>2Artboard 1</title>
+<g>
+	<path class="st0" d="M58,258.5c0-27,7.7-53.4,22.2-76.2h0l0,0c0.5-0.8,1-1.6,1.6-2.4L200,0H0v400h199.5
+		C121.4,400,58,336.6,58,258.5L58,258.5z"/>
+	<path class="st0" d="M200,0l118.4,181.8c42.4,65.7,23.4,153.3-42.2,195.6c-22.9,14.7-49.5,22.6-76.7,22.6H400V0H200z"/>
+</g>
 </svg>
