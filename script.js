@@ -4,17 +4,47 @@
 let earningsCurrent = 0;
 const earningsGoal = 50000;
 let tapInUse = [false, false, false, false, false, false, false];
-const priceList = {
-  "El Hefe ": 40,
-  "Fairy Tale Ale ": 30,
-  "GitHop ": 45,
-  "Hollaback Lager ": 30,
-  "Hoppily Ever After ": 25,
-  "Mowintime ": 56,
-  "Row 26 ": 45,
-  "Ruined Childhood ": 30,
-  "Sleighride ": 70,
-  "Steampunk ": 60
+const beerList = {
+  "El Hefe ": {
+    price: 40,
+    popularity: 0
+  },
+  "Fairy Tale Ale ": {
+    price: 30,
+    popularity: 0
+  },
+  "GitHop ": {
+    price: 45,
+    popularity: 0
+  },
+  "Hollaback Lager ": {
+    price: 30,
+    popularity: 0
+  },
+  "Hoppily Ever After ": {
+    price: 25,
+    popularity: 0
+  },
+  "Mowintime ": {
+    price: 55,
+    popularity: 0
+  },
+  "Row 26 ": {
+    price: 45,
+    popularity: 0
+  },
+  "Ruined Childhood ": {
+    price: 30,
+    popularity: 0
+  },
+  "Sleighride ": {
+    price: 70,
+    popularity: 0
+  },
+  "Steampunk ": {
+    price: 60,
+    popularity: 0
+  }
 };
 
 let bartenders = [];
@@ -147,7 +177,11 @@ function checkTap(tap) {
 //Called when a beer is sold
 function beerSold(beerName) {
   //console.log(beerName);
-  earningsCurrent += priceList[beerName + " "];
+  earningsCurrent += beerList[beerName + " "].price;
+
+  beerList[beerName + " "].popularity++;
+
+  console.log(beerList);
 
   console.log(earningsCurrent);
 
@@ -156,7 +190,7 @@ function beerSold(beerName) {
 
 function updateGoalBar() {
   let goalBar = document.querySelector(".goal_fill");
-  let barFill = earningsCurrent / 20000 * 100;
+  let barFill = (earningsCurrent / 20000) * 100;
   goalBar.style.width = barFill + "%";
 }
 
@@ -261,18 +295,19 @@ function updateStock(beerName) {
   document.querySelector(
     "#storage ." + beerName.replace(/\s/g, "") + " .beer_info .beer_amount"
   ).textContent = "Kegs left: " + amount;
-}
-if (amount === 2) {
-  document
-    .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
-    .classList.add("warning");
-} else if (keg.amount < 2) {
-  document
-    .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
-    .classList.add("alert");
-  document
-    .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
-    .classList.remove("warning");
+
+  if (amount === 2) {
+    document
+      .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+      .classList.add("warning");
+  } else if (amount < 2) {
+    document
+      .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+      .classList.add("alert");
+    document
+      .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+      .classList.remove("warning");
+  }
 }
 
 //#endregion storage
