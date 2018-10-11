@@ -13,7 +13,7 @@ p {
 }
 /* Grid container slut  */
 body {
-  background-color: rgb(0, 40, 55);
+  background-color: rgb(39, 53, 65);
 }
 .intro_h1 {
   grid-column: 5/9;
@@ -30,6 +30,8 @@ body {
 
 #logo_container {
   width: 20vw;
+  grid-column: 5/9;
+  justify-self: center;
 }
 
 .goal_start {
@@ -66,22 +68,26 @@ body {
   grid-column: 7/10;
   grid-row: 3/4;
   margin-top: 15%;
+  background-color: rgb(40, 111, 115);
+  margin-left: 10%;
 }
 
 #bartender_container {
   grid-column: 4/7;
   grid-row: 3/4;
   margin-top: 15%;
+  background-color: rgb(40, 111, 115);
 }
 
 #storage {
   grid-column: 4/10;
-  margin-left: 4vw;
+  margin-left: 3vw;
   margin-top: 4vw;
 }
 #taps {
-  grid-column: 1/6;
-  grid-row: 5/6;
+  grid-column: 4/10;
+  margin-left: 3vw;
+  margin-top: 2vw;
 }
 /*### STORAGE AND TAPS ###*/
 
