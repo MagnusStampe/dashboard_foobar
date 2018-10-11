@@ -1,30 +1,42 @@
+/* Fonte */
+h1 {
+  font-family: sans-serif;
+}
+p {
+  font-family: sans-serif;
+}
 /* Grid container til alle vores elementer */
 /* Som test har jeg kun defineret et grid med ROWS, og lagt det som en container omrking alt vi har i index.HTML */
 #container_grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(4, 1fr);
 }
 /* Grid container slut  */
 body {
-  background-color: darkblue;
+  background-color: rgb(0, 40, 55);
 }
 .intro_h1 {
   grid-column: 1/5;
   grid-row: 0/1;
-  color: orange;
+  color: rgb(234, 174, 99);
+  text-align: center;
 }
 
 #goal_container {
-  width: 90vw;
   height: 10vh;
-  grid-column: 1/5;
+  grid-column: 4/10;
   grid-row: 0/1;
-  margin-left: 2vw;
 }
 
+.goal_start {
+  font-size: 2rem;
+  color: white;
+}
 .goal_end {
   text-align: end;
+  font-size: 2rem;
+  color: white;
 }
 
 .goal_bar {
@@ -36,18 +48,20 @@ body {
 
 .goal_fill {
   height: 100%;
-  background-color: red;
+  background-color: rgb(234, 174, 99);
   transition: 1s;
 
   max-width: 100%;
 }
 
 #bartender_container {
-  grid-column: 1/4;
+  grid-column: 4/5;
+  grid-row: 2/2;
 }
 
 #pie_char {
-  grid-column: 5/6;
+  grid-column: 6/9;
+  grid-row: 2/2;
 }
 
 .diagram_test {
@@ -58,7 +72,9 @@ body {
 }
 
 #storage {
-  grid-column: 1/6;
+  grid-column: 4/10;
+  margin-top: 3vw;
+  margin-left: 6vw;
 }
 #taps {
   grid-column: 1/6;
