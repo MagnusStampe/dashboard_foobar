@@ -23,6 +23,62 @@ const bartender_prototype = {
   beer_count: 0
 };
 
+//#region Bartender chart
+let bartenderChart = document
+  .querySelector("#bartender_chart")
+  .getContext("2d");
+
+Chart.defaults.global.defaultFontFamily = "Lato";
+Chart.defaults.global.defaultFontSize = 18;
+Chart.defaults.global.defaultFontColor = "#777";
+
+let massPopChart = new Chart(bartenderChart, {
+  type: "bar", //bar, horizontalBar, pie, line, doughnut, radar, polarArea
+  data: {
+    labels: [],
+    datasets: [
+      {
+        label: "Har solgt",
+
+        data: [],
+        backgroundColor: [
+          "rgb(190, 243, 246",
+          "rgb(190, 243, 246",
+          "rgb(190, 243, 246"
+        ],
+        hoverBackgroundColor: [
+          "rgb(190, 243, 246",
+          "rgb(190, 243, 246",
+          "rgb(190, 243, 246"
+        ]
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "Work Effort",
+      fontFamily: "Helvetica"
+    },
+    legend: {
+      display: false
+    },
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+            min: 0,
+            max: 100
+          }
+        }
+      ]
+    }
+  }
+});
+
+//endregion
+
 let data = JSON.parse(FooBar.getData());
 
 document.addEventListener("DOMContentLoaded", init);
@@ -36,6 +92,7 @@ function init() {
   data.storage.forEach(createStock);
   data.taps.forEach(createLevel);
   data.bartenders.forEach(createBartenders);
+  massPopChart.update();
 }
 
 //#endregion init
@@ -99,7 +156,7 @@ function beerSold(beerName) {
 
 function updateGoalBar() {
   let goalBar = document.querySelector(".goal_fill");
-  let barFill = (earningsCurrent / 20000) * 100;
+  let barFill = earningsCurrent / 20000 * 100;
   goalBar.style.width = barFill + "%";
 }
 
@@ -107,80 +164,23 @@ function updateGoalBar() {
 
 //#region bartenders
 
-let bartenderChart = document
-  .querySelector("#bartender_chart")
-  .getContext("2d");
-
-Chart.defaults.global.defaultFontFamily = "Lato";
-Chart.defaults.global.defaultFontSize = 18;
-Chart.defaults.global.defaultFontColor = "#777";
-
-let massPopChart = new Chart(bartenderChart, {
-  type: "bar", //bar, horizontalBar, pie, line, doughnut, radar, polarArea
-  data: {
-    labels: ["Peter", "Jonas", "Martin"],
-    datasets: [
-      {
-        label: "Har solgt",
-        data: ["24", "20", "13"],
-        backgroundColor: [
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246"
-        ],
-        hoverBackgroundColor: [
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246",
-          "rgb(190, 243, 246"
-        ]
-      }
-    ]
-  },
-  options: {
-    title: {
-      display: true,
-      text: "Work Effort"
-    },
-    legend: {
-      display: false
-    }
-  }
-});
-
 function createBartenders(bartenderdata) {
   const bartender = Object.create(bartender_prototype);
   bartender.name = bartenderdata.name;
 
   bartenders.push(bartender);
 
+  massPopChart.data.labels.push(bartender.name);
+
   //console.warn(bartender.statusDetail);
 }
 
-// function checkTap(tap) {
-//   //console.log(tap.id);
-//   if (tap.inUse && tap.inUse !== tapInUse[tap.id]) {
-//     beerSold(tap.beer);
-
-//     updateStock(tap.beer);
-//     //data.storage.forEach(updateStock);
-
-//     tapInUse[tap.id] = true;
-//   } else if (tap.inUse === false) {
-//     tapInUse[tap.id] = false;
-//   }
-// }
-
-// let bartender_prototype = {
-//   name: "",
-//   status: "READY",
-//   statusDetail: "waiting",
-//   beer_count: 0
-// };
 function checkBartender(tapID) {
   data.bartenders.forEach((bartender, index) => {
     if (bartender.usingTap == tapID) {
       console.log(bartender.name + " bruger " + tapID);
       bartenders[index].beer_count += 1;
+      updateBartenders(bartenders, index);
     }
   });
 
@@ -191,7 +191,14 @@ function checkBartender(tapID) {
   );
 }
 
-function updateBartenders() {}
+function updateBartenders(bartenders, index) {
+  console.log(index);
+  massPopChart.data.datasets.forEach(dataset => {
+    dataset.data[index] = 0;
+    dataset.data[index] = bartenders[index].beer_count;
+  });
+  massPopChart.update();
+}
 
 //#endregion
 
@@ -202,13 +209,31 @@ function createStock(keg) {
     .querySelector("[data-storageTemp]")
     .content.cloneNode(true);
 
-  clone.querySelector(".stock_number").textContent = keg.amount;
-
   clone
-    .querySelector(".stock_number")
+    .querySelector(".beer_single_container")
     .classList.add(keg.name.replace(/\s/g, ""));
 
-  document.querySelector("#storage").appendChild(clone);
+  clone.querySelector(".beer_name").textContent = keg.name;
+
+  clone.querySelector(".beer_amount").textContent = "Kegs left: " + keg.amount;
+
+  console.log(`url("${keg.name.toLowerCase().replace(/\s/g, "")}.png")`);
+  clone.querySelector(".beer_single_container").style.backgroundImage =
+    "url('img/" + keg.name.toLowerCase().replace(/\s/g, "") + ".png')";
+
+  for (let n = keg.amount; n > 0; n--) {
+    let displayKegs = document.createElement("DIV");
+    clone.querySelector(".beer").appendChild(displayKegs);
+  }
+
+  if (keg.amount === 2) {
+    clone.querySelector(".beer").classList.add("warning");
+  } else if (keg.amount < 2) {
+    clone.querySelector(".beer").classList.add("alert");
+    clone.querySelector(".beer").classList.remove("warning");
+  }
+
+  document.querySelector("[data-storageDest]").appendChild(clone);
 }
 
 function updateStock(beerName) {
@@ -221,10 +246,33 @@ function updateStock(beerName) {
       amount = beer.amount;
     }
   }
-
   document.querySelector(
-    "." + beerName.replace(/\s/g, "")
-  ).textContent = amount;
+    "#storage ." + beerName.replace(/\s/g, "") + " .beer"
+  ).innerHTML = "";
+  for (let n = amount; n > 0; n--) {
+    let displayKegs = document.createElement("DIV");
+    document
+      .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+      .appendChild(displayKegs);
+  }
+  console.log(
+    "#storage ." + beerName.replace(/\s/g, "") + " .beer_info .beer_amount"
+  );
+  document.querySelector(
+    "#storage ." + beerName.replace(/\s/g, "") + " .beer_info .beer_amount"
+  ).textContent = "Kegs left: " + amount;
+}
+if (amount === 2) {
+  document
+    .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+    .classList.add("warning");
+} else if (keg.amount < 2) {
+  document
+    .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+    .classList.add("alert");
+  document
+    .querySelector("#storage ." + beerName.replace(/\s/g, "") + " .beer")
+    .classList.remove("warning");
 }
 
 //#endregion storage

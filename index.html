@@ -12,7 +12,7 @@
 <body>
     <div id="container_grid">
         <div id="goal_container">
-            <h1 class="intro_h1">FooBar Dashboard 1337_Hackerton</h1>
+            <h1 class="intro_h1">FooBar Dashboard4 1337_Hackerton</h1>
             <div class="goal_numbers">
                 <div class="goal_start">0</div>
                 <div class="goal_end">20.000</div>
@@ -30,6 +30,13 @@
             <div class="diagram_test"></div>
         </div>
 
+        <div id="bartender_container">
+            <canvas id="bartender_chart"></canvas>
+        </div>
+        <section id="storage">
+            <div class="beer_container" data-storageDest>
+            </div>
+        </section>
 
         <section id="storage">
         </section>
@@ -39,7 +46,17 @@
 
 
 
+        <template data-storageTemp>
+            <div class="beer_single_container">
+                <article class="beer">
 
+                </article>
+                <div class="beer_info">
+                    <p class="beer_name">Beer</p>
+                    <p class="beer_amount">7</p>
+                </div>
+            </div>
+        </template>
 
 
         <template data-tapTemp>
