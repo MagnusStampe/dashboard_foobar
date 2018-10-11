@@ -63,6 +63,8 @@ const bartender_prototype = {
   beer_count: 0
 };
 
+//#endregion
+
 //#region charts
 let bartenderChart = document
   .querySelector("#bartender_chart")
@@ -203,15 +205,27 @@ function doSomething(dataThing) {
 
 function updateTaps(beerId) {
   let level;
+  let capacity;
   data.taps.forEach(checkTap);
   console.log(level);
 
   function checkTap(tap) {
     if (beerId == tap.id) {
       level = tap.level;
+      capacity = tap.capacity;
     }
   }
-  document.querySelector(".tap" + beerId).textContent = level;
+  console.log("height: " + (level / capacity) * 100 + "%");
+  document.querySelector(".tap" + beerId + " .beer .level").style.height =
+    (level / capacity) * 100 + "%";
+  document.querySelector(
+    ".tap" + beerId + " .beer_info .beer_amount"
+  ).textContent = "Level: " + (level / capacity) * 100 + "%";
+  if ((level / capacity) * 100 < 10) {
+    document.querySelector(".tap" + beerId + " .beer").classList.add("alert");
+  } else if ((level / capacity) * 100 < 30) {
+    document.querySelector(".tap" + beerId + " .beer").classList.add("warning");
+  }
 }
 
 function checkTap(tap) {
@@ -253,7 +267,7 @@ function beerSold(beerName) {
 
 function updateGoalBar() {
   let goalBar = document.querySelector(".goal_fill");
-  let barFill = earningsCurrent / 20000 * 100;
+  let barFill = (earningsCurrent / 20000) * 100;
   goalBar.style.width = barFill + "%";
 }
 
@@ -355,8 +369,7 @@ function updateStock(beerName) {
   }
   document.querySelector(
     "#storage ." + beerName.replace(/\s/g, "") + " .beer"
-  ).innerHTML =
-    "";
+  ).innerHTML = "";
   for (let n = amount; n > 0; n--) {
     let displayKegs = document.createElement("DIV");
     document
@@ -368,8 +381,7 @@ function updateStock(beerName) {
   );
   document.querySelector(
     "#storage ." + beerName.replace(/\s/g, "") + " .beer_info .beer_amount"
-  ).textContent =
-    "Kegs left: " + amount;
+  ).textContent = "Kegs left: " + amount;
 
   if (amount === 2) {
     document
@@ -393,11 +405,15 @@ function createLevel(tap) {
     .querySelector("[data-tapTemp]")
     .content.cloneNode(true);
 
-  clone.querySelector(".tap_level").textContent = tap.level;
+  clone.querySelector(".beer_amount").textContent = "Level: " + tap.level;
+  clone.querySelector(".beer_name").textContent = tap.beer;
+  clone.querySelector(".beer_single_container").style.backgroundImage =
+    "url('img/" + tap.beer.toLowerCase().replace(/\s/g, "") + ".png')";
 
-  clone.querySelector(".tap_level").classList.add("tap" + tap.id);
+  clone.querySelector(".beer_single_container").classList.add("tap" + tap.id);
 
-  document.querySelector("#taps").appendChild(clone);
+  document.querySelector("#taps .beer_container").appendChild(clone);
+  updateTaps(tap.id);
 }
 
 //#endregion taps level

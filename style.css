@@ -73,9 +73,10 @@ body {
 #taps {
   grid-column: 1/6;
 }
-/*### STORAGE ###*/
+/*### STORAGE AND TAPS ###*/
 
-#storage {
+#storage,
+#taps {
   width: 600px;
   height: 120px;
   padding: 10px;
@@ -90,6 +91,11 @@ body {
   width: 1320px;
 }
 
+#taps .beer_container {
+  height: 100%;
+  width: 930px;
+}
+
 .beer_single_container {
   position: relative;
   display: inline-block;
@@ -97,6 +103,10 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   margin: 0 4px;
+}
+
+#taps .beer_single_container {
+  background-size: cover;
 }
 
 #storage .beer {
@@ -117,13 +127,26 @@ body {
   grid-template-rows: 1fr 1fr 1fr;
   grid-gap: 7px;
 }
+#taps .beer {
+  scroll-snap-align: center;
 
-#storage .beer.warning {
+  position: relative;
+  width: 110px;
+  height: 110px;
+
+  padding: 5px;
+
+  overflow: hidden;
+}
+
+#storage .beer.warning,
+#taps .beer.warning {
   border: solid yellow 1px;
   width: 108px;
   height: 108px;
 }
-#storage .beer.alert {
+#storage .beer.alert,
+#taps .beer.alert {
   border: solid red 1px;
   width: 108px;
   height: 108px;
@@ -135,7 +158,8 @@ body {
   height: 100%;
 }
 
-#storage .beer_info {
+#storage .beer_info,
+#taps .beer_info {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -148,27 +172,51 @@ body {
   transition: 0.4s;
 }
 
-#storage .beer_single_container:hover .beer_info {
+#storage .beer_single_container:hover .beer_info,
+#taps .beer_single_container:hover .beer_info {
   max-height: 90px;
   opacity: 1;
 }
 
-#storage .beer_single_container:hover .beer_info p {
+#storage .beer_single_container:hover .beer_info p,
+#taps .beer_single_container:hover .beer_info p {
   opacity: 1;
 }
 
-#storage .beer_info p {
+#storage .beer_info p,
+#taps .beer_info p {
   margin: 10px;
   color: #fff;
   opacity: 0;
   transition: 0.6s ease-out;
 }
 
-#storage .beer_info .beer_name {
+#storage .beer_info .beer_name,
+#taps .beer_info .beer_name {
   margin-top: 40px;
   font-size: 0.8em;
 }
 
+#storage .beer_info .beer_amount,
 #storage .beer_info .beer_amount {
   font-size: 0.9em;
+}
+
+#taps .level {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(200, 200, 0, 0.5);
+  border-top: solid red 5px;
+}
+
+#taps .drop {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-image: url("img/drop.svg");
+  background-size: cover;
 }

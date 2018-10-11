@@ -35,10 +35,9 @@
             </div>
         </section>
 
-        <section id="storage">
-        </section>
-
         <section id="taps">
+            <div class="beer_container">
+            </div>
         </section>
     </div>
 
@@ -58,21 +57,18 @@
 
 
     <template data-tapTemp>
-        <p class="tap_level">5</p>
+        <div class="beer_single_container">
+            <article class="beer">
+                <div class="level"></div>
+            </article>
+            <div class="drop"></div>
+            <div class="beer_info">
+                <p class="beer_name">Beer</p>
+                <p class="beer_amount">Level</p>
+            </div>
+        </div>
     </template>
 
-
-    <template data-storageTemp>
-
-        <article class="beers">
-            <div class="level">
-            </div>
-            <div class="stock">
-                <h1 class="stock_number">asdasdasdasdasda</h1>
-            </div>
-        </article>
-
-    </template>
 
     <script src="https://kea-alt-del.dk/2018/front/foobar.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
